@@ -3,7 +3,7 @@ import random as random
 # Read the CSV file
 data= pd.read_csv("Exam_Table.csv")
 data['HRID'] = range(1, len(data) + 1)
-column_order = ['HRID'] + [col for col in data.columns if col != 'ID']
+column_order = ['HRID']
 data.iloc[:, -1] = data.iloc[:, 1].astype(str)  +"-"+data.iloc[:, 2].astype(str)+"-"+data.iloc[:, 6].astype(str)
 data = data[column_order]
 # View the first 5 rows
