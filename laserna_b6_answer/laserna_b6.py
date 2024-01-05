@@ -1,13 +1,22 @@
 import pandas as pd
-import random as random
-# Read the CSV file
-data= pd.read_csv("Exam_Table.csv")
-data['HRID'] = range(1, len(data) + 1)
-column_order = ['HRID']
-data.iloc[:, -1] = data.iloc[:, 1].astype(str)  +"-"+data.iloc[:, 2].astype(str)+"-"+data.iloc[:, 6].astype(str)
-data = data[column_order]
-# View the first 5 rows
-print(data)
-# data.insert(2,"Random",[random.randint(0,1) for i in range (0,len(data))])
-data.to_csv("b6_output1.csv",index=False)
-# data_transposed.to_csv("b6_output1.csv",index=False)
+
+file_path = 'Exam_Table.csv'
+data = pd.read_csv(file_path)
+
+# Convert 'Replicate' column to string to handle float values
+data['Replicate'] = data['Replicate'].astype(str)
+
+# Replace any commas with dashes in the specified columns
+columns_to_replace_comma = ['Location', 'Site', 'Replicate']
+data[columns_to_replace_comma] = data[columns_to_replace_comma].replace(',', '-', regex=True)
+
+
+data['HRID'] = data['Location'] + '-' + data['Site'] + '-' + data['Replicate']
+
+# Insert 'HRID' column at the beginning of the DataFrame
+data.insert(0, 'HRID', data.pop('HRID'))
+
+
+output_file_path = 'B6_output.csv'
+data.to_csv(output_file_path, index=False)
+

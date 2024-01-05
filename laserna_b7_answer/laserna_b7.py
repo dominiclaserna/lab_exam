@@ -1,8 +1,11 @@
 import pandas as pd
-import random as random
-# Read the CSV file
-data= pd.read_csv("Exam_Table.csv")
 
+file_path = 'Exam_Table.csv'
+data = pd.read_csv(file_path)
 
-data_transposed = data.T
-data_transposed.to_csv("b6_output1.csv",index=False)
+# Transpose the DataFrame
+transposed_data = data.T
+
+# Save the transposed data to a new CSV file
+output_file_path = 'B7_output.csv'
+transposed_data.to_csv(output_file_path, header=False)
